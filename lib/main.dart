@@ -277,54 +277,119 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: Colors.white,
 
-      appBar: AppBar(title: const Text("Profile")),
+      body: Column(
+        children: [
+          // HEADER ATAS
+          Stack(
+            alignment: Alignment.center,
+            clipBehavior: Clip.none,
 
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 220,
 
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: const Color(0xFF18233A), width: 3),
-                shape: BoxShape.circle,
+                decoration: const BoxDecoration(
+                  color: Color(0xFFE7EEF9),
+
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(150),
+                    bottomRight: Radius.circular(150),
+                  ),
+                ),
+
+                child: const Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 70),
+
+                    child: Text(
+                      "Profile",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
               ),
 
-              child: const CircleAvatar(
-                radius: 80,
-                backgroundImage: AssetImage("images/sigma.jpeg"),
+              Positioned(
+                bottom: -50,
+
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+
+                    boxShadow: [
+                      BoxShadow(color: Colors.black12, blurRadius: 10),
+                    ],
+                  ),
+
+                  child: const CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage("images/sigma.jpeg"),
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 70),
+
+          infoTile(Icons.school_outlined, "PAB 2026"),
+
+          infoTile(Icons.badge_outlined, "1462300121"),
+
+          infoTile(Icons.email_outlined, "mdtmvn@gmail.com"),
+
+          infoTile(Icons.location_on_outlined, "Surabaya"),
+
+          infoTile(Icons.person_outline, "@mdtmvn"),
+
+          const Spacer(),
+
+          Container(
+            height: 120,
+
+            decoration: const BoxDecoration(
+              color: Color(0xFFE7EEF9),
+
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(150),
+                topRight: Radius.circular(150),
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
 
-            const SizedBox(height: 20),
+  Widget infoTile(IconData icon, String text) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 18),
 
-            const Text(
-              "I Made Ahmad Bagus Firmansyah",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+      decoration: const BoxDecoration(
+        border: Border(bottom: BorderSide(color: Colors.black12)),
+      ),
+
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.blue, size: 30),
+
+          const SizedBox(width: 25),
+
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),
-
-            const SizedBox(height: 10),
-
-            const Text("1462300121", style: TextStyle(fontSize: 18)),
-
-            const SizedBox(height: 10),
-
-            const Text("Informatika", style: TextStyle(fontSize: 18)),
-
-            const SizedBox(height: 20),
-
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
-                "Mahasiswa Informatika yang sedang belajar Flutter dan Pemrograman Aplikasi Bergerak.",
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
