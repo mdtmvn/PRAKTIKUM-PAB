@@ -1,0 +1,239 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
+    );
+  }
+}
+
+//////////////////////////////////////////////////
+// PAGE 1
+//////////////////////////////////////////////////
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+
+      body: Center(
+        child: Container(
+          width: 260,
+          height: 550,
+          decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Welcome to",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+
+              const Text("PRAKTIKUM PAB"),
+
+              const SizedBox(height: 40),
+
+              const Text(
+                "1462300121",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+
+              const SizedBox(height: 20),
+
+              Image.asset("images/sigma.jpeg", width: 150, height: 150),
+
+              const SizedBox(height: 20),
+
+              const Text(
+                "I Made Ahmad Bagus\nFirmansyah",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+
+              const SizedBox(height: 50),
+
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const KategoriPage()),
+                  );
+                },
+                child: const Text("Masuk"),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//////////////////////////////////////////////////
+// PAGE 2
+//////////////////////////////////////////////////
+
+class KategoriPage extends StatelessWidget {
+  const KategoriPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Ruang Baca Digital")),
+
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              "images/perpusanjay.jpg",
+              width: 300,
+              height: 120,
+              fit: BoxFit.cover,
+            ),
+
+            const SizedBox(height: 20),
+
+            tombolKategori(context, "Fiksi & Novel"),
+
+            tombolKategori(context, "Teknologi & IT"),
+
+            tombolKategori(context, "Sains & Matematika"),
+
+            tombolKategori(context, "Sejarah Dunia"),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget tombolKategori(BuildContext context, String text) {
+    return Padding(
+      padding: const EdgeInsets.all(6),
+      child: SizedBox(
+        width: 220,
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const DetailBukuPage()),
+            );
+          },
+          child: Text(text),
+        ),
+      ),
+    );
+  }
+}
+
+//////////////////////////////////////////////////
+// PAGE 3
+//////////////////////////////////////////////////
+
+class DetailBukuPage extends StatelessWidget {
+  const DetailBukuPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Detail Buku")),
+
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+
+          child: Column(
+            children: [
+              Image.asset("images/coverbuku.jpeg", width: 180),
+
+              const SizedBox(height: 20),
+
+              const Text(
+                "Apa Arti Dari Semua Ini?",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+
+              const Text("ADRIAN WIJAYA", style: TextStyle(fontSize: 16)),
+
+              const SizedBox(height: 15),
+
+              const Text(
+                'Pernahkah Anda menghentikan rutinitas Anda sejenak, memandang ke luar jendela, dan bertanya dalam hati: "Untuk apa semua ini?" ',
+                textAlign: TextAlign.center,
+              ),
+
+              const SizedBox(height: 20),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  Chip(label: Text("1001 Hal")),
+
+                  Chip(label: Text("Bahasa Indonesia")),
+                ],
+              ),
+
+              const SizedBox(height: 30),
+
+              SizedBox(
+                width: double.infinity,
+
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) {
+                        return AlertDialog(
+                          title: const Text("Konfirmasi Pinjam"),
+
+                          content: const Text(
+                            "Apakah Anda yakin ingin meminjam buku ini?",
+                          ),
+
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text("Batal"),
+                            ),
+
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Buku berhasil dipinjam"),
+                                  ),
+                                );
+                              },
+                              child: const Text("OK"),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: const Text("Pinjam Buku"),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
